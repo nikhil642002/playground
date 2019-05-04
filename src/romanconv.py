@@ -1,5 +1,5 @@
 # This was a recent London Python Dojo challenge that wasn't chosen, so I have taken up the challenge myself
-# The task was to create a bidirectional roman numberal converter without using the IF command
+# The task was to create a bidirectional roman numeral converter without using the IF command
 
 def to_roman(number):
     thousands, rest = divmod(number, 1000)
@@ -17,7 +17,7 @@ def to_roman(number):
 
     out = "M" * thousands + "CM" * n900s + "D" * n500s + "CD" * n400s + "C" * hrest + "XC" * n90s + "L" * n50s + "XL" * n40s + "X" * trest + "IX" * n9s + "V" * n5s + "IV" * n4s + "I" * nrest
 
-    return (out)
+    return out
 
 
 def from_roman(number):
@@ -37,4 +37,4 @@ def from_roman(number):
 
     out = 1000 * thou + 100 * huns + 400 * fourhun + 500 * fivehun + 900 * ninehun + 10 * tens + 40 * forty + 50 * fifty + 90 * ninety + ones + 4 * four + 5 * five + 9 * nine
 
-    return (out)
+    return out
