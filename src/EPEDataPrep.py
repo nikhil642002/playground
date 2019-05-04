@@ -15,12 +15,14 @@ def main():
     # Drop Northern Ireland and NI-only parties, as they use Single Transferable Vote system
     votes = votes.drop('Northern Ireland', axis=0)
     votes = votes.dropna(axis=1, how='all')
+    votes = votes.sort_index()
 
     seats = pd.read_csv('../inputs/EPE2014-AvailSeats.csv')
     seats = seats.set_index('Electoral region')
     seats.index = seats.index.str.strip()
     seats = seats.drop('Northern Ireland', axis=0)
     seats = seats.fillna(0)
+    seats = seats.sort_index()
 
     votescast = votes.T.apply(lambda x: x.dropna().to_dict()).to_dict()
     seatsavail = seats.to_dict()['Representation']
