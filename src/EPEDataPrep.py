@@ -1,7 +1,18 @@
 import pandas as pd
 
-
 def main():
+    votescast, seatsavail, results = prep()
+
+    print('Votes cast by party')
+    print(votescast)
+    print('Seats available by constituency')
+    print(seatsavail)
+    print('Seats actually won by party by constituency')
+    print(results)
+    return votescast, seatsavail, results
+
+
+def prep():
     votes = pd.read_csv('../inputs/EPE2014-Votes.csv')
     votes = votes.set_index('Local Authority')
     # strip leading/trailing spaces from index/column values
@@ -52,12 +63,7 @@ def main():
     for key in resultsseats.keys():
         results[key] = {k: int(v) for k, v in resultsseats[key].items()}
 
-    print('Votes cast by party')
-    print(votescast)
-    print('Seats available by constituency')
-    print(seatsavail)
-    print('Seats actually won by party by constituency')
-    print(results)
+    return votescast, seatsavail, results
 
 
 if __name__ == '__main__':
