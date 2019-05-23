@@ -71,7 +71,6 @@ def computer_move(grid, player, opponent):
 
             if blocksrow == 2 or blockscol == 2 or blocksdiag == 2:
                 # block
-                print("Hi!", [j, k])
                 blockflag = True
                 blockwhere = [j, k]
 
