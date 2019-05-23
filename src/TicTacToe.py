@@ -1,15 +1,35 @@
+import random
+
 import numpy as np
 
 
 def print_grid(grid):
-    print("----------")
-    for row in grid:
-        print(row[0] + "  | " + row[1] + " | " + row[2])
-        print("----------")
+    print(" " + grid[0, 0] + " | " + grid[0, 1] + " | " + grid[0, 2])
+    print("---+---+---")
+    print(" " + grid[1, 0] + " | " + grid[1, 1] + " | " + grid[1, 2])
+    print("---+---+---")
+    print(" " + grid[2, 0] + " | " + grid[2, 1] + " | " + grid[2, 2])
+    print()
 
 
 def check_centre_free(grid):
     return grid[1, 1] == " "
+
+
+def check_row(row, piece):
+    return list(row).count(piece)
+
+
+def check_win(player):
+    for row in grid:
+        if check_row(row, player) == 3:
+            return True
+    for row in grid.transpose():
+        if check_row(row, player) == 3:
+            return True
+    if check_row(grid.diagonal(), player) == 3 or check_row(np.fliplr(grid).diagonal(), player) == 3:
+        return True
+    return False
 
 
 def computer_move(grid, player, opponent):
@@ -18,27 +38,31 @@ def computer_move(grid, player, opponent):
         return
 
     oppsmax = [-1, -1, -1]
+    blockflag = False
     for j in range(3):
         for k in range(3):
             if grid[j, k] != " ":
                 continue
 
-            oppsrow = list(grid[j, :]).count(player)
-            oppscol = list(grid[:, k]).count(player)
+            current_row = grid[j, :]
+            current_col = grid[:, k]
 
-            blocksrow = list(grid[j, :]).count(opponent)
-            blockscol = list(grid[:, k]).count(opponent)
+            oppsrow = check_row(current_row, player)
+            oppscol = check_row(current_col, player)
+
+            blocksrow = check_row(current_row, opponent)
+            blockscol = check_row(current_col, opponent)
 
             oppsdiag = 0
             blocksdiag = 0
 
             if j % 2 == 0 and k % 2 == 0:
                 if j == k:
-                    diag = [grid[0, 0], grid[1, 1], grid[2, 2]]
+                    diag = grid.diagonal()
                 else:
-                    diag = [grid[0, 2], grid[1, 1], grid[2, 0]]
-                oppsdiag = diag.count(player)
-                blocksdiag = diag.count(opponent)
+                    diag = np.fliplr(grid).diagonal()
+                oppsdiag = check_row(diag, player)
+                blocksdiag = check_row(diag, opponent)
 
             if oppsrow == 2 or oppscol == 2 or oppsdiag == 2:
                 # win
@@ -47,34 +71,61 @@ def computer_move(grid, player, opponent):
 
             if blocksrow == 2 or blockscol == 2 or blocksdiag == 2:
                 # block
-                grid[j, k] = player
-                return False
+                print("Hi!", [j, k])
+                blockflag = True
+                blockwhere = [j, k]
 
-            opps = oppsdiag + oppscol + oppsrow
+            opps = (oppsdiag - blocksdiag) + (oppscol - blockscol) + (oppsrow - blocksrow)
             blocks = blocksdiag + blockscol + blocksrow
 
             if opps > oppsmax[0] or (opps == oppsmax[0] and blocks > oppsmax[1]):
                 oppsmax = [opps, blocks, j, k]
-    grid[oppsmax[2], oppsmax[3]] = player
+    if blockflag:
+        grid[blockwhere[0], blockwhere[1]] = player
+    else:
+        grid[oppsmax[2], oppsmax[3]] = player
     return False
 
 
-grid = np.full([3, 3], dtype=str, fill_value=" ")
-computer_move(grid, "X", "O")
-print_grid(grid)
-for i in range(4):
+def human_move(player):
     move = int(input("Enter move (1-9)")) - 1
     x = move // 3
     y = move % 3
     while grid[x, y] != " ":
         move = int(input("Enter move (1-9)")) - 1
-    x = move // 3
-    y = move % 3
-    grid[x, y] = "O"
-    print(x, y)
+        x = move // 3
+        y = move % 3
+    grid[x, y] = human
+    return check_win(player)
+
+
+grid = np.full([3, 3], dtype=str, fill_value=" ")
+computer, human = random.sample(["X", "O"], 2)
+moves = (["X", "O"] * 5)[:9]
+print()
+print("You are playing {}. X always goes first.".format(human))
+print()
+print("Enter the number of a square to play there:")
+print()
+print_grid(np.arange(1, 10).reshape(3, 3).astype(str))
+print()
+
+for move in moves:
+    if move == computer:
+        win = computer_move(grid, computer, human)
+    else:
+        win = human_move(human)
     print_grid(grid)
-    computer_move(grid, "X", "O")
-    print_grid(grid)
+
+    if win:
+        if move == computer:
+            print("Computer wins!")
+        else:
+            print("Player wins")
+        break
+if not win:
+    print("It's a tie!")
+
 
 """    
 check centre
