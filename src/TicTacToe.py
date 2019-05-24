@@ -4,11 +4,11 @@ import numpy as np
 
 
 def print_grid(grid):
-    print(" " + grid[0, 0] + " | " + grid[0, 1] + " | " + grid[0, 2])
-    print("---+---+---")
-    print(" " + grid[1, 0] + " | " + grid[1, 1] + " | " + grid[1, 2])
-    print("---+---+---")
-    print(" " + grid[2, 0] + " | " + grid[2, 1] + " | " + grid[2, 2])
+    print("   " + grid[0, 0] + " | " + grid[0, 1] + " | " + grid[0, 2])
+    print("  ---+---+---")
+    print("   " + grid[1, 0] + " | " + grid[1, 1] + " | " + grid[1, 2])
+    print("  ---+---+---")
+    print("   " + grid[2, 0] + " | " + grid[2, 1] + " | " + grid[2, 2])
     print()
 
 
@@ -37,7 +37,7 @@ def computer_move(grid, player, opponent):
         grid[1, 1] = player
         return
 
-    oppsmax = [-1, -1, -1]
+    oppsmax = [[-1, -1, -1, -1]]
     blockflag = False
     for j in range(3):
         for k in range(3):
@@ -77,12 +77,18 @@ def computer_move(grid, player, opponent):
             opps = (oppsdiag - blocksdiag) + (oppscol - blockscol) + (oppsrow - blocksrow)
             blocks = blocksdiag + blockscol + blocksrow
 
-            if opps > oppsmax[0] or (opps == oppsmax[0] and blocks > oppsmax[1]):
-                oppsmax = [opps, blocks, j, k]
+            # Rather than pick the first of equally weighted squares, it creates a list of squares of equal weight
+
+            if opps > oppsmax[0][0] or (opps == oppsmax[0][0] and blocks > oppsmax[0][1]):
+                oppsmax = [[opps, blocks, j, k]]
+            elif opps == oppsmax[0][0] and blocks == oppsmax[0][1]:
+                oppsmax.append([opps, blocks, j, k])
+                print(oppsmax)
     if blockflag:
         grid[blockwhere[0], blockwhere[1]] = player
     else:
-        grid[oppsmax[2], oppsmax[3]] = player
+        rando = random.randint(0, len(oppsmax) - 1)
+        grid[oppsmax[rando][2], oppsmax[rando][3]] = player
     return False
 
 
