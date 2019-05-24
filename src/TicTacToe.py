@@ -131,37 +131,31 @@ for move in moves:
 if not win:
     print("It's a tie!")
 
-
 """    
 check centre
-    if free - take it
+    if free - take it (no other processing necessary for middle as it will always be occupied by end of move 2)
     
-check corners
-    check side x 2
-    check diagonal
-        if win - win
-        if opp-win
-            block
-        count blocks
-        count opportunities
+check square
+    check row
+    check col (grid.transpose row)
+    if corner
+        check diagonal (grid.diagonal.row)
+    if win possible
+        win
+    else if must-block
+        block
+    else
+        check squares with best opps
+            if > 1 best opp
+                block random best opp
+            else
+                block best opp
         
-check middles
-    check middle x 2
-    if win - win
-        if opp-win
-            block
-        count blocks
-        count opportunities
+check row/col
+    count blocks (opponent pieces in row)
+    count opportunities (own pieces in row - opponent pieces in row)
         
-make move
-    check max opportunities
-        check max blocks
-            if > 1:
-                random choice
-    
-123
-456
-789
+
 
 
 
