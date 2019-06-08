@@ -8,6 +8,13 @@ webster_quotient = lambda v: 2 * v + 1
 
 
 def average_voting(quotient, votes, seats):
+    '''
+
+    :param quotient:
+    :param votes:
+    :param seats:
+    :return:
+    '''
     results = {party: 0 for party in votes}
     while sum(results.values()) < seats:
         victor = max(votes.keys(), key=lambda party: votes[party] / quotient(results[party]))
@@ -65,6 +72,9 @@ for seat, result in votescast.items():
     print("D'Hondt:     ", calculated_dhondt)
     print("Modified D'H:", calculated_modified_dhondt)
     print("Webster:     ", calculated_webster)
+    if seat == "London":
+        for k, v in result.items():
+            print(k, v)
 
 print()
 print("Sum totals")
