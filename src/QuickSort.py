@@ -1,3 +1,10 @@
+'''
+QUICKSORT Algorithm
+Directly following the pseudocode from CLRS
+Allows for change of pivot choice (left, right or random within subArray
+'''
+
+
 from random import randint
 
 
@@ -14,8 +21,8 @@ def quickSort(p, r):
 
 def partition(p, r):
     itercount[1] += 1
-    # Select pivot by commenting/uncommenting the below
-    # pivot = r            # basic version of Quicksort - always chooses rightmost element as pivot
+    # Select pivot by commenting/uncommenting the pivot selections below
+    # pivot = r  # basic version of Quicksort - always chooses rightmost element as pivot
     # pivot = p  # always chooses leftmost element as pivot
     pivot = randint(p, r)  # randomised pivot. Picks pivot within the subarray then swaps so pivot becomes last element
 
