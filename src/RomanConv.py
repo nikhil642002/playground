@@ -1,4 +1,4 @@
-# This was a recent London Python Dojo challenge that wasn't chosen, so I have taken up the challenge myself
+# This was a recent London Python Dojo challenge that wasn't chosen, so I have taken up the challenge
 # The task was to create a bidirectional roman numeral converter without using the IF command
 
 def to_roman(number):

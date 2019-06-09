@@ -1,3 +1,20 @@
+# This was a recent London Python Dojo challenge that wasn't chosen, so I have taken up the challenge
+# The task was to create a sudoku solver
+
+# Input is in the form:
+#     input = [[i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i],
+#              [i, i, i, i, i, i, i, i, i]]
+#
+# Where i is 1-9 or 0 for blank
+
+'''
 import itertools
 from collections import Counter
 
