@@ -58,7 +58,25 @@ def test_actual_sort1():
     assert qs.A == [1, 2, 3, 4, 5]
 
 
-def test_Quicksort1():
+def test_quicksort1():
     qs = QuickSort.Array([1, 7, 6, 5, 4, 3, 2, 12, 11, 65, 45, 34, 22, 19, 78, 101])
     qs.QUICKSORT(0, len(qs.A) - 1)
     assert qs.A == [1, 2, 3, 4, 5, 6, 7, 11, 12, 19, 22, 34, 45, 65, 78, 101]
+
+
+def test_quicksort2():
+    qs = QuickSort.Array([])
+    qs.QUICKSORT(0, len(qs.A) - 1)
+    assert qs.A == []
+
+
+def test_quicksort3():
+    qs = QuickSort.Array([1])
+    qs.QUICKSORT(0, len(qs.A) - 1)
+    assert qs.A == [1]
+
+
+def test_quicksort4():
+    qs = QuickSort.Array([2, 1])
+    qs.QUICKSORT(0, len(qs.A) - 1)
+    assert qs.A == [1, 2]

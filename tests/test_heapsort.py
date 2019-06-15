@@ -106,6 +106,24 @@ def test_heapsort2():
     assert hs.A == [1, 2, 3, 4, 5, 6, 7, 11, 12, 19, 22, 34, 45, 65, 78, 101]
 
 
+def test_heapsort3():
+    hs = HeapSort.Heap([])
+    hs.HEAPSORT()
+    assert hs.A == []
+
+
+def test_heapsort4():
+    hs = HeapSort.Heap([1])
+    hs.HEAPSORT()
+    assert hs.A == [1]
+
+
+def test_heapsort5():
+    hs = HeapSort.Heap([2, 1])
+    hs.HEAPSORT()
+    assert hs.A == [1, 2]
+
+
 def test_min_heapsort():
     hs = HeapSort.Heap([1, 7, 6, 5, 4, 3, 2])
     hs.MIN_HEAPSORT()

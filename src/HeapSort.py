@@ -1,3 +1,8 @@
+'''
+HEAPSORT Algorithm
+Directly following the pseudocode from CLRS
+'''
+
 from math import floor
 
 
@@ -114,17 +119,3 @@ class Heap:
         if smallest != i:
             self.A[i], self.A[smallest] = self.A[smallest], self.A[i]
             self.MIN_HEAPIFY(smallest)
-
-
-# heap = Heap([7, 5, 4, 24, 23, 12, 1, 55, 6, 567, 26, 25, 14, 13, 99, 2])
-# print(heap.A)
-# heap.HEAPSORT()
-# print(heap.A)
-# heap.HEAPSORT()
-# print(heap.A)
-# heap.MIN_HEAPSORT()
-# print(heap.A)
-heap = Heap([1, 3, 4])
-print(heap.A)
-heap.MAX_HEAPIFY(0)
-print(heap.A)
