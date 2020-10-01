@@ -1,4 +1,4 @@
-# playground
+# playground - An Amazing Project For Python Learners
 Repo for small, standalone coding ideas
 
 ## Suduko Solver
