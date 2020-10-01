@@ -1,4 +1,5 @@
 # playground
+Promote Python for Better Exeperience
 Repo for small, standalone coding ideas
 
 ## Suduko Solver
